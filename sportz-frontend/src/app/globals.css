@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0B0E14;
+  --color-foreground: #FAFAFA;
+  --color-primary: #FF4D4D; /* A vibrant sports red */
+  --color-primary-hover: #FF3333;
+  --color-accent: #2E8B57; /* Sea green for positive events */
+  --color-accent-hover: #3CB371;
+  --color-card: #151A23;
+  --color-card-hover: #1C222E;
+  --color-border: #2A3143;
+  
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    @apply antialiased min-h-screen selection:bg-primary/30;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-card/80 backdrop-blur-md border border-border;
+  }
+}
+
+/* Micro animations */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.3s ease-out forwards;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+.animate-pulse-ring::before {
+  content: '';
+  @apply absolute inset-0 rounded-full bg-primary z-[-1];
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
